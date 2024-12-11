@@ -1,14 +1,13 @@
-package Classes;
+package PlayerClasses;
 
 public class Player {
     public String name;
-    // public ClassTypes playerClass; not implemented yet but i will have different classes
     public int level;
     public int xp;
     public int health;
     // public Inventory playerInv;
 
-    public Player() {
+    public Player(String name) {
         this.name = name;
         this.level = 1;
         this.xp = 0;
