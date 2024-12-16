@@ -50,11 +50,10 @@ public class Player {
     public void levelUp() {
         this.xp -= this.xpToNextLevel;
         this.level++;
-        this.xpToNextLevel *= 1.25;
+        this.xpToNextLevel *= 2;
         this.maxHealth += 50;
         this.gold += 100;
         this.health = this.maxHealth;
-        System.out.println("You leveled up!");
         if (this.xp >= this.xpToNextLevel) {
             levelUp();
         }
@@ -101,13 +100,5 @@ public class Player {
     public void addCarryWeight(int carryWeight) {
         this.carryWeight += carryWeight;
     }
-    public String toString() {
-        return "Player: " + this.name + "\n" +
-                "Level: " + this.level + "\n" +
-                "XP: " + this.xp + "\n" +
-                "Health: " + this.health + "\n" +
-                "Gold: " + this.gold + "\n" +
-                "Healing Potions: " + this.healingPotions + "\n" +
-                "Carry Weight: " + this.carryWeight;
-    }
+
 }
