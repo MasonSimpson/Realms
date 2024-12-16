@@ -3,6 +3,7 @@ package GameLogic;
 import javax.swing.*;
 import java.awt.*;
 import PlayerClasses.*;
+import Music.*;
 
 public class MainMenuPanel extends JPanel {
     // Declaring Swing objects being used on the MainMenuPanel
@@ -12,6 +13,7 @@ public class MainMenuPanel extends JPanel {
     private JButton rulesButton;
     private JButton optionsButton;
     private JButton exitButton;
+    private String menuMusicPath = "src/Music/menu music.mp3";
 
     public MainMenuPanel() {
         super();
@@ -22,6 +24,9 @@ public class MainMenuPanel extends JPanel {
     }
 
     private void showMenu() {
+        // Start music
+        MusicPlayer.play(menuMusicPath);
+
         // Game logo
         gameLogo = new ImageIcon("src/Images/realms logo.png");
         titleLabel = new JLabel(gameLogo);
