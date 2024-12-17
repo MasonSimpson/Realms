@@ -6,6 +6,7 @@ import Player.*;
 
 
 public class CharacterCreationPanel extends JPanel {
+    private JPanel parentPanel; // Reference to main menu panel
     private JLabel title;
     private JLabel playerNameLabel;
     private JTextField playerNameField;
@@ -16,7 +17,8 @@ public class CharacterCreationPanel extends JPanel {
     private JLabel classLabel;
     private JComboBox <Player.Classes> classComboBox;
     private JButton createCharacterButton;
-    public CharacterCreationPanel() {
+    public CharacterCreationPanel(JPanel parent) {
+        this.parentPanel = parent;
         this.setLayout(null);
         this.setBackground(Color.black);
         // Character creation title
@@ -85,6 +87,6 @@ public class CharacterCreationPanel extends JPanel {
         Player.Races race = (Player.Races) raceComboBox.getSelectedItem();
         Player.Classes playerClass = (Player.Classes) classComboBox.getSelectedItem();
         Player player = new Player(name, race, playerClass, gender);
-
+        GamePanel.startGame(parentPanel, player);
     }
 }

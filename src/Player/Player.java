@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
     public enum Races {
-        HUMAN, DWARF, ELF, ORC
+        HUMAN, DWARF, ELF
     }
     public enum Classes {
         WARRIOR, RANGER, PRIEST, MAGE

@@ -107,10 +107,6 @@ public class MainMenuPanel extends JPanel {
         this.revalidate();
         this.repaint();
     }
-    public void clearPanel() {
-        this.removeAll();
-        this.repaint();
-        this.revalidate();
-    }
+
 
 }

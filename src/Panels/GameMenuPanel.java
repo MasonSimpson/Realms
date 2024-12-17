@@ -29,7 +29,7 @@ public class GameMenuPanel extends JPanel {
     }
     private void characterCreation() {
         this.removeAll();
-        CharacterCreationPanel characterCreationPanel = new CharacterCreationPanel();
+        CharacterCreationPanel characterCreationPanel = new CharacterCreationPanel((JPanel) this.getParent());
         characterCreationPanel.setBounds(0, 50,1600,900);
         this.add(characterCreationPanel);
         this.revalidate();
