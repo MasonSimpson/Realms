@@ -1,9 +1,21 @@
-package PlayerClasses;
+package Player;
 
 import java.util.ArrayList;
 
 public class Player {
+    public enum Races {
+        HUMAN, DWARF, ELF, ORC
+    }
+    public enum Classes {
+        WARRIOR, RANGER, PRIEST, MAGE
+    }
+    public enum Gender {
+        MALE, FEMALE
+    }
     public String name;
+    public Races playerRace;
+    public Classes playerClass;
+    public Gender playerGender;
     public int level;
     public int xp;
     public int health;
@@ -16,8 +28,11 @@ public class Player {
     private int xpToNextLevel = 100;
     private int maxHealth = 100;
 
-    public Player(String name) {
+    public Player(String name, Races playerRace, Classes playerClass, Gender playerGender) {
         this.name = name;
+        this.playerRace = playerRace;
+        this.playerClass = playerClass;
+        this.playerGender = playerGender;
         this.level = 1;
         this.xp = 0;
         this.health = 100;
@@ -99,6 +114,18 @@ public class Player {
     }
     public void addCarryWeight(int carryWeight) {
         this.carryWeight += carryWeight;
+    }
+    public String toString() {
+        return ("Name: " + this.name +
+        "Race: " + this.playerRace +
+        "Class: " + this.playerClass +
+        "Gender: " + this.playerGender +
+        "Level: " + this.level +
+        "XP: " + this.xp +
+        "Health: " + this.health +
+        "Gold: " + this.gold +
+        "Healing Potions: " + this.healingPotions +
+        "Carry Weight: " + this.carryWeight);
     }
 
 }

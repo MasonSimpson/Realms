@@ -1,6 +1,7 @@
 package GameLogic;
 
-import PlayerClasses.*;
+import Panels.MainMenuPanel;
+
 import javax.swing.*;
 
 public class Main {

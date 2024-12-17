@@ -7,7 +7,7 @@ import java.io.IOException;
 public class MusicPlayer {
     private static Clip clip;
     private static FloatControl volumeControl;
-    private static float currentVolume = 60;
+    private static float currentVolume = 70;
 
     public static void play(String path) {
         try {

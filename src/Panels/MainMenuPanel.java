@@ -1,8 +1,8 @@
-package GameLogic;
+package Panels;
 
 import javax.swing.*;
 import java.awt.*;
-import PlayerClasses.*;
+
 import Music.*;
 
 public class MainMenuPanel extends JPanel {
@@ -10,8 +10,6 @@ public class MainMenuPanel extends JPanel {
     private JLabel titleLabel;
     private Icon gameLogo;
     private JButton playButton;
-    private JButton newGameButton;
-    private JButton loadGameButton;
     private JButton optionsButton;
     private JButton backToMenuButton;
     private JButton exitButton;
@@ -80,58 +78,39 @@ public class MainMenuPanel extends JPanel {
     private void showGameMenu() {
         this.removeAll();
         this.add(titleLabel);
-        newGameButton = new JButton("New Game");
-        newGameButton.setHorizontalAlignment(SwingConstants.CENTER);
-        newGameButton.setIcon(new ImageIcon("src/Images/new game button.png"));
-        newGameButton.setBounds(730, 400,150, 50);
-        newGameButton.setBackground(Color.black);
-        this.add(newGameButton);
-        loadGameButton = new JButton("Load Game");
-        loadGameButton.setHorizontalAlignment(SwingConstants.CENTER);
-        loadGameButton.setIcon(new ImageIcon("src/Images/load game button.png"));
-        loadGameButton.setBounds(730, 500,150, 50);
-        loadGameButton.setFont(new Font("Arial", Font.BOLD, 20));
-        loadGameButton.setBackground(Color.black);
-        loadGameButton.setForeground(Color.white);
-        this.add(loadGameButton);
-        createBackToMenuButton();
+        GameMenuPanel gameMenuPanel = new GameMenuPanel();
+        gameMenuPanel.setBounds(0, 200,1600,400);
+        this.add(gameMenuPanel);
+        createBackToMenuButton(705, 650);
         this.revalidate();
         this.repaint();
     }
     private void showOptionsMenu() {
         this.removeAll();
         this.add(titleLabel);
-        JLabel musicVolumeLabel = new JLabel("Music Volume");
-        musicVolumeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        musicVolumeLabel.setIcon(new ImageIcon("src/Images/music volume label.png"));
-        musicVolumeLabel.setBounds(730, 400,150, 50);
-        this.add(musicVolumeLabel);
-        musicVolumeSlider = new JSlider(0, 100, (int) MusicPlayer.getCurrentVolume());
-        musicVolumeSlider.setBounds(670, 450,250, 50);
-        musicVolumeSlider.setMajorTickSpacing(1);
-        musicVolumeSlider.setMinorTickSpacing(1);
-        musicVolumeSlider.setPaintTicks(false);
-        musicVolumeSlider.setPaintLabels(false);
-        musicVolumeSlider.setBackground(Color.black);
-        musicVolumeSlider.setForeground(Color.white);
-        // Add a ChangeListener to the slider to update the volume
-        musicVolumeSlider.addChangeListener(e -> {
-            int volumeValue = musicVolumeSlider.getValue();
-            MusicPlayer.setVolume(volumeValue);
-        });
-        this.add(musicVolumeSlider);
-        createBackToMenuButton();
+        OptionsPanel optionsPanel = new OptionsPanel();
+        optionsPanel.setBounds(0, 200,1600,400);
+        this.add(optionsPanel);
+        createBackToMenuButton(705, 650);
         this.revalidate();
         this.repaint();
 
     }
-    private void createBackToMenuButton() {
+    private void createBackToMenuButton(int x, int y) {
         backToMenuButton = new JButton("Back to Menu");
         backToMenuButton.setHorizontalAlignment(SwingConstants.CENTER);
         backToMenuButton.setIcon(new ImageIcon("src/Images/back to menu button.png"));
-        backToMenuButton.setBounds(705, 600,200, 50);
+        backToMenuButton.setBounds(x, y,200, 50);
         backToMenuButton.setBackground(Color.black);
         backToMenuButton.addActionListener(e -> showMenu());
         this.add(backToMenuButton);
+        this.revalidate();
+        this.repaint();
     }
+    public void clearPanel() {
+        this.removeAll();
+        this.repaint();
+        this.revalidate();
+    }
+
 }

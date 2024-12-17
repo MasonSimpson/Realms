@@ -1,4 +1,4 @@
-package PlayerClasses;
+package Player;
 
 public record ClassTypes() {
 

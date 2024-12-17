@@ -1,4 +1,4 @@
-package PlayerClasses;
+package Player;
 
 public class Weapon {
     public String name;
