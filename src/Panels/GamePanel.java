@@ -38,8 +38,12 @@ public class GamePanel extends JPanel {
         enterVillage();
     }
     private static void enterVillage() {
-        adventurersVillagePanel = new AdventurersVillagePanel(player);
+        adventurersVillagePanel = new AdventurersVillagePanel(player, actionPanel, interactionPanel);
         adventurersVillagePanel.setBounds(0,0,actionPanel.getWidth(), actionPanel.getHeight());
+        actionPanel.add(adventurersVillagePanel);
+        actionPanel.revalidate();
+        actionPanel.repaint();
+        adventurersVillagePanel.firstTime();
     }
 
 }
