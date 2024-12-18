@@ -2,6 +2,7 @@ package Panels;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameMenuPanel extends JPanel {
     private JButton newGameButton;

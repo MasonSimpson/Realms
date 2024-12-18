@@ -50,8 +50,12 @@ public class AdventurersVillagePanel extends JPanel {
         String[] buttonLabels = {"Enter Realm", "Visit Shop", "View Inventory", "Visit Mayor", "Sleep", "Return to Menu"};
         Runnable[] actions = {
                 () -> {
-
-
+                    MusicPlayer.stop();
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().add(new RealmSelectionPanel(player));
+                    frame.revalidate();
+                    frame.repaint();
                 },
                 () -> System.out.println("Visiting shop..."),
                 () -> System.out.println("Viewing inventory..."),
