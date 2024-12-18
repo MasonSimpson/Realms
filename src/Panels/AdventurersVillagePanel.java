@@ -40,11 +40,33 @@ public class AdventurersVillagePanel extends JPanel {
                 are tired from all of your travels, and you decide to go to bed, and you wake up the next morning, reenergized... <br>
                 Click to continue
                 """);
-        villagePrompt();
+        interactionPanel.setGameMessages(messages, this::villagePrompt);
     }
     public void villagePrompt() {
+        messages.clear();
         messages.add("What would you like to do today, " + player.getName() + "?");
-        interactionPanel.setGameMessages(messages);
+        interactionPanel.setGameMessages(messages, null);
+
+        String[] buttonLabels = {"Enter Realm", "Visit Shop", "View Inventory", "Visit Mayor", "Sleep", "Return to Menu"};
+        Runnable[] actions = {
+                () -> {
+
+
+                },
+                () -> System.out.println("Visiting shop..."),
+                () -> System.out.println("Viewing inventory..."),
+                () -> System.out.println("Visiting the mayor..."),
+                () -> System.out.println("Sleeping..."),
+                () -> {
+                    MusicPlayer.stop();
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().add(new MainMenuPanel());
+                    frame.revalidate();
+                    frame.repaint();
+                }
+        };
+        interactionPanel.addButtons(buttonLabels, actions);
     }
 
 }
