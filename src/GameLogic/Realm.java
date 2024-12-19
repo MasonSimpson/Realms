@@ -20,6 +20,5 @@ public class Realm {
         this.name = name;
         this.player = player;
         highEnoughLevel = player.getLevel() >= requiredLevel;
-
     }
 }

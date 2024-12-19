@@ -37,7 +37,7 @@ public class Monster {
                 }
                 break;
             case Highgarden:
-                this.level = rand.nextInt(4) + 11;
+                this.level = rand.nextInt(9) + 11;
                 monsterType = rand.nextInt(2);
                 if (monsterType == 0) {
                     this.type = MonsterType.TROLL;
@@ -46,7 +46,7 @@ public class Monster {
                 }
                 break;
             case Maguuma:
-                this.level = rand.nextInt(4) + 21;
+                this.level = rand.nextInt(9) + 21;
                 monsterType = rand.nextInt(3);
                 if (monsterType == 0) {
                     this.type = MonsterType.CHIMERA;
