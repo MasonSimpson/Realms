@@ -7,7 +7,7 @@ public class Monster {
     private Random rand = new Random();
     private Realm realm;
     public enum MonsterType {
-        GOBLIN, OGRE, WOLF, SPIDER, TROLL, GIANT, CHIMERA, PHOENIX, DRAGON, DEMON, MINOTAUR, CERBERUS;
+        GOBLIN, OGRE, WOLF, SPIDER, TROLL, GIANT, LAVA_SPRITE, PHOENIX, DRAGON, DEMON, MINOTAUR, CERBERUS;
     }
     public MonsterType type;
     public int level;
@@ -18,7 +18,7 @@ public class Monster {
         this.realm = realm;
         int monsterType;
         switch (realm.name) {
-            case Elyos:
+            case Valamar:
                 this.level = rand.nextInt(4) + 1;
                 monsterType = rand.nextInt(2);
                 if (monsterType == 0) {
@@ -27,7 +27,7 @@ public class Monster {
                     this.type = MonsterType.OGRE;
                 }
                 break;
-            case Dorne:
+            case Elvaria:
                 this.level = rand.nextInt(4) + 6;
                 monsterType = rand.nextInt(2);
                 if (monsterType == 0) {
@@ -36,7 +36,7 @@ public class Monster {
                     this.type = MonsterType.SPIDER;
                 }
                 break;
-            case Highgarden:
+            case Khara:
                 this.level = rand.nextInt(9) + 11;
                 monsterType = rand.nextInt(2);
                 if (monsterType == 0) {
@@ -49,7 +49,7 @@ public class Monster {
                 this.level = rand.nextInt(9) + 21;
                 monsterType = rand.nextInt(3);
                 if (monsterType == 0) {
-                    this.type = MonsterType.CHIMERA;
+                    this.type = MonsterType.LAVA_SPRITE;
                 }
                 else if (monsterType == 1) {
                     this.type = MonsterType.PHOENIX;
@@ -58,7 +58,7 @@ public class Monster {
                     this.type = MonsterType.DRAGON;
                 }
                 break;
-            case Underworld:
+            case Dehara:
                 this.level = rand.nextInt(4) + 31;
                 monsterType = rand.nextInt(3);
                 if (monsterType == 0) {

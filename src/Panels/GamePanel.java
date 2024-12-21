@@ -3,8 +3,6 @@ package Panels;
 import javax.swing.*;
 import java.awt.*;
 import Player.*;
-import GameLogic.*;
-import Music.*;
 
 public class GamePanel extends JPanel {
     public static Player player;

@@ -1,7 +1,7 @@
 package Panels;
 
 import Player.*;
-import GameLogic.*;
+
 import javax.swing.*;
 import java.awt.*;
 

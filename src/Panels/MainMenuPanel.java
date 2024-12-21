@@ -36,7 +36,7 @@ public class MainMenuPanel extends JPanel {
         }
 
         // Game logo
-        gameLogo = new ImageIcon("src/Images/realms logo.png");
+        gameLogo = new ImageIcon("src/Images/ButtonLabels/realms logo.png");
         titleLabel = new JLabel(gameLogo);
         titleLabel.setBounds(500, 20, 600, 300);
         this.add(titleLabel);
@@ -45,7 +45,7 @@ public class MainMenuPanel extends JPanel {
         playButton = new JButton("Play Game");
         playButton.setHorizontalAlignment(SwingConstants.CENTER);
         playButton.setVerticalAlignment(SwingConstants.CENTER);
-        playButton.setIcon(new ImageIcon("src/Images/play game button.png"));
+        playButton.setIcon(new ImageIcon("src/Images/ButtonLabels/play game button.png"));
         playButton.setBounds(730, 400,150, 50);
         playButton.setBackground(Color.BLACK);
         playButton.addActionListener(e -> showGameMenu());
@@ -55,7 +55,7 @@ public class MainMenuPanel extends JPanel {
         optionsButton = new JButton("Options");
         optionsButton.setHorizontalAlignment(SwingConstants.CENTER);
         optionsButton.setVerticalAlignment(SwingConstants.CENTER);
-        optionsButton.setIcon(new ImageIcon("src/Images/options button.png"));
+        optionsButton.setIcon(new ImageIcon("src/Images/ButtonLabels/options button.png"));
         optionsButton.setBounds(730, 500,150, 50);
         optionsButton.setBackground(Color.BLACK);
         optionsButton.addActionListener(e -> showOptionsMenu());
@@ -65,7 +65,7 @@ public class MainMenuPanel extends JPanel {
         exitButton = new JButton("Exit Game");
         exitButton.setHorizontalAlignment(SwingConstants.CENTER);
         exitButton.setVerticalAlignment(SwingConstants.CENTER);
-        exitButton.setIcon(new ImageIcon("src/Images/exit game button.png"));
+        exitButton.setIcon(new ImageIcon("src/Images/ButtonLabels/exit game button.png"));
         exitButton.setBounds(730, 600,150, 50);
         exitButton.setBackground(Color.BLACK);
         exitButton.addActionListener(e -> System.exit(0));
@@ -99,7 +99,7 @@ public class MainMenuPanel extends JPanel {
     private void createBackToMenuButton(int x, int y) {
         backToMenuButton = new JButton("Back to Menu");
         backToMenuButton.setHorizontalAlignment(SwingConstants.CENTER);
-        backToMenuButton.setIcon(new ImageIcon("src/Images/back to menu button.png"));
+        backToMenuButton.setIcon(new ImageIcon("src/Images/ButtonLabels/back to menu button.png"));
         backToMenuButton.setBounds(x, y,200, 50);
         backToMenuButton.setBackground(Color.black);
         backToMenuButton.addActionListener(e -> showMenu());

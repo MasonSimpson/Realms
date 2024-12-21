@@ -1,7 +1,6 @@
 package Panels;
 
 import Player.*;
-import GameLogic.*;
 import Music.*;
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +57,10 @@ public class AdventurersVillagePanel extends JPanel {
                     frame.repaint();
                 },
                 () -> System.out.println("Visiting shop..."),
-                () -> System.out.println("Viewing inventory..."),
+                () -> {
+                    InventoryPopout inventoryPopout = new InventoryPopout(player);
+                    inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
+                },
                 () -> System.out.println("Visiting the mayor..."),
                 () -> System.out.println("Sleeping..."),
                 () -> {

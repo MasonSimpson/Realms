@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Realm {
     public enum RealmNames {
-        Elyos,
-        Dorne,
-        Highgarden,
+        Valamar,
+        Elvaria,
+        Khara,
         Maguuma,
-        Underworld,
+        Dehara,
     }
     public RealmNames name;
     public boolean highEnoughLevel;

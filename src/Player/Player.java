@@ -6,15 +6,11 @@ public class Player {
     public enum Races {
         HUMAN, DWARF, ELF
     }
-    public enum Classes {
-        WARRIOR, RANGER, PRIEST, MAGE
-    }
     public enum Gender {
         MALE, FEMALE
     }
     public String name;
     public Races playerRace;
-    public Classes playerClass;
     public Gender playerGender;
     public int level;
     public int xp;
@@ -28,10 +24,9 @@ public class Player {
     private int xpToNextLevel = 100;
     private int maxHealth = 100;
 
-    public Player(String name, Races playerRace, Classes playerClass, Gender playerGender) {
+    public Player(String name, Races playerRace, Gender playerGender) {
         this.name = name;
         this.playerRace = playerRace;
-        this.playerClass = playerClass;
         this.playerGender = playerGender;
         this.level = 1;
         this.xp = 0;
@@ -118,7 +113,6 @@ public class Player {
     public String toString() {
         return ("Name: " + this.name +
         "Race: " + this.playerRace +
-        "Class: " + this.playerClass +
         "Gender: " + this.playerGender +
         "Level: " + this.level +
         "XP: " + this.xp +

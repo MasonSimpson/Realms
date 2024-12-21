@@ -9,7 +9,6 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import Player.*;
-import GameLogic.*;
 
 public class InteractionPanel extends JPanel{
     private JPanel buttonPanel;

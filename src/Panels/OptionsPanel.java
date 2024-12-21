@@ -13,7 +13,7 @@ public class OptionsPanel extends JPanel{
         this.setBackground(Color.black);
         musicVolumeLabel = new JLabel("Music Volume");
         musicVolumeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        musicVolumeLabel.setIcon(new ImageIcon("src/Images/music volume label.png"));
+        musicVolumeLabel.setIcon(new ImageIcon("src/Images/ButtonLabels/music volume label.png"));
         musicVolumeLabel.setBounds(730, 150,150, 50);
         this.add(musicVolumeLabel);
         musicVolumeSlider = new JSlider(0, 100, (int) MusicPlayer.getCurrentVolume());

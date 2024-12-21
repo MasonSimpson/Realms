@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class RealmSelectionTest {
     public static void main (String[]args) throws InterruptedException {
-        Player player = new Player("Test", Player.Races.HUMAN, Player.Classes.MAGE, Player.Gender.MALE);
+        Player player = new Player("Test", Player.Races.HUMAN, Player.Gender.MALE);
         RealmSelectionPanel panel = new RealmSelectionPanel(player);
 
         JFrame frame = new JFrame("Realms");
