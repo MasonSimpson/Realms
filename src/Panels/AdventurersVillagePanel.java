@@ -62,7 +62,17 @@ public class AdventurersVillagePanel extends JPanel {
                     inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
                 },
                 () -> System.out.println("Visiting the mayor..."),
-                () -> System.out.println("Sleeping..."),
+                () -> {
+                    messages.clear();
+                    messages.add("You decide to go to sleep, and you wake up the next day...");
+                    interactionPanel.setGameMessages(messages, null);
+                    interactionPanel.clearButtons();
+                    Timer timer = new Timer(3000, e ->{
+                        villagePrompt();
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                },
                 () -> {
                     MusicPlayer.stop();
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -74,5 +84,16 @@ public class AdventurersVillagePanel extends JPanel {
         };
         interactionPanel.addButtons(buttonLabels, actions);
     }
+    public void returnToVillage() {
+        messages.clear();
+        messages.add("<html>You made it back to the safety of your home. Exhausted from your travels, you call it a day and decide to sleep, and you wake up the next morning...");
+        interactionPanel.setGameMessages(messages, null);
+        Timer timer = new Timer(4000, e -> {
+            villagePrompt();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
 
 }
+

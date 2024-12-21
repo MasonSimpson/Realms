@@ -39,9 +39,6 @@ public class InteractionPanel extends JPanel{
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (gameMessageQueue.isEmpty()) {
-                    clearButtons();
-                }
                 showNextMessage();
             }
         });

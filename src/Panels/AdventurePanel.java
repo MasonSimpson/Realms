@@ -1,5 +1,6 @@
 package Panels;
 
+import Music.MusicPlayer;
 import Player.*;
 import GameLogic.*;
 import Entities.*;
@@ -16,6 +17,8 @@ public class AdventurePanel extends JPanel {
     private ArrayList<String> messages = new ArrayList<>();
     private Timer timer;
     private Monster monster;
+    private int goldEarned = 0;
+    private int xpEarned = 0;
     public AdventurePanel(InteractionPanel interactionPanel, ActionPanel actionPanel, Player player, Realm realm) {
         this.setLayout(null);
         this.setBackground(Color.black);
@@ -41,7 +44,28 @@ public class AdventurePanel extends JPanel {
                         InventoryPopout inventoryPopout = new InventoryPopout(player);
                         inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
                     },
-                    () -> System.out.println("Flee")
+                    () -> {
+                        messages.clear();
+                        messages.add("<html>You decide to flee from the " + monster.type + ", and you escape back to the Adventurer's Village...<br>" +
+                                "You earned " + goldEarned + " gold and " + xpEarned + " XP during your adventure.<br>" +
+                                "Traveling back to Adventurer's Village...");
+                        interactionPanel.setGameMessages(messages, null);
+                        interactionPanel.clearButtons();
+                        Timer tempTimer = new Timer(6000, returnToVillage -> {
+                            MusicPlayer.stop();
+                            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                            frame.getContentPane().removeAll();
+                            frame.getContentPane().add(actionPanel);
+                            frame.getContentPane().add(interactionPanel);
+                            AdventurersVillagePanel adventurersVillagePanel = new AdventurersVillagePanel(player, actionPanel, interactionPanel);
+                            frame.getContentPane().add(adventurersVillagePanel);
+                            adventurersVillagePanel.returnToVillage();
+                            frame.revalidate();
+                            frame.repaint();
+                        });
+                        tempTimer.setRepeats(false);
+                        tempTimer.start();
+                    }
             };
             interactionPanel.addButtons(buttonLabels, buttonActions);
         });
