@@ -13,6 +13,7 @@ public class Monster {
     public int level;
     public int health;
     public int damage;
+    public int healthPotions;
 
     public Monster(Realm realm) {
         this.realm = realm;
@@ -76,6 +77,17 @@ public class Monster {
         }
         this.health = 50 + (this.level - 1) * 25;
         this.damage = 5 + (this.level - 1) * 5;
+        this.healthPotions = this.level;
+    }
+    public int getLevel() {
+        return level;
+    }
+    public void removeHealth(int health) {
+        this.health -= health;
+    }
+    public void addHealth(int health) {
+        this.health += health;
+        this.healthPotions--;
     }
 
 

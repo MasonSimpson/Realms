@@ -14,6 +14,8 @@ public class AdventurePanel extends JPanel {
     private ActionPanel actionPanel;
     private Player player;
     private Realm realm;
+    private JLabel playerHealthLabel;
+    private JLabel monsterHealthLabel;
     private ArrayList<String> messages = new ArrayList<>();
     private Timer timer;
     private Monster monster;
@@ -29,17 +31,49 @@ public class AdventurePanel extends JPanel {
         this.player = player;
         this.realm = realm;
     }
+    public void setActionPanel() {
+        playerHealthLabel = new JLabel("<html>" + player.getName() + "'s health: " + player.getHealth());
+        playerHealthLabel.setFont(playerHealthLabel.getFont().deriveFont(15f));
+        playerHealthLabel.setForeground(Color.white);
+        playerHealthLabel.setBackground(Color.black);
+        playerHealthLabel.setBounds(100, 30, 400, 30);
+        actionPanel.add(playerHealthLabel);
+        monsterHealthLabel = new JLabel("<html>" + monster.type + "'s health: " + monster.health);
+        monsterHealthLabel.setFont(monsterHealthLabel.getFont().deriveFont(15f));
+        monsterHealthLabel.setForeground(Color.white);
+        monsterHealthLabel.setBackground(Color.black);
+        monsterHealthLabel.setBounds(100, 70, 400, 30);
+        actionPanel.add(monsterHealthLabel);
+        this.revalidate();
+        this.repaint();
+    }
+    public void updateActionPanel() {
+        playerHealthLabel.setText("<html>" + player.getName() + "'s health: " + player.getHealth());
+        monsterHealthLabel.setText("<html>" + monster.type + "'s health: " + monster.health);
+        this.revalidate();
+        this.repaint();
+    }
     public void adventure() {
         messages.add("Traveling through " + realm.name + "...");
+        monster = new Monster(realm);
+        setActionPanel();
         interactionPanel.setGameMessages(messages, null);
         timer = new Timer(3000, e -> {
             messages.clear();
-            monster = new Monster(realm);
             messages.add("<html>You encounter a " + monster.type + ", and it doesn't look like it's going to back down...<br>What would you like to do, " + player.getName() + "?");
             interactionPanel.setGameMessages(messages, null);
             String[] buttonLabels = {"Battle", "View Inventory", "Flee"};
             Runnable[] buttonActions = {
-                    () -> System.out.println("Battle"),
+                    () -> {
+                        messages.clear();
+                        interactionPanel.clearButtons();
+                        messages.add("You begin your battle with the " + monster.type + "...");
+                        interactionPanel.setGameMessages(messages, null);
+                        Timer battleStartTimer = new Timer(3000, startBattle -> {
+                            startBattle();
+                        });
+                        battleStartTimer.start();
+                    },
                     () -> {
                         InventoryPopout inventoryPopout = new InventoryPopout(player);
                         inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
@@ -71,5 +105,28 @@ public class AdventurePanel extends JPanel {
         });
         timer.setRepeats(false);
         timer.start();
+    }
+    public void startBattle() {
+        Battle battle = new Battle(player, monster);
+        messages.clear();
+        messages.add("What would you like to do, " + player.getName() + "?");
+        interactionPanel.setGameMessages(messages, null);
+        String[] buttonLabels = {"Attack", "Heal", "View Inventory"};
+        Runnable[] buttonActions = {
+                () -> {
+                    messages.clear();
+                    interactionPanel.clearButtons();
+                    messages.add("You attack the " + monster.type + "!");
+                    interactionPanel.setGameMessages(messages, null);
+                    battle.attack();
+                    updateActionPanel();
+                },
+                () -> System.out.println("Heal"),
+                () -> {
+                    InventoryPopout inventoryPopout = new InventoryPopout(player);
+                    inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
+                }
+        };
+        interactionPanel.addButtons(buttonLabels, buttonActions);
     }
 }

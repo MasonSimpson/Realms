@@ -1,6 +1,7 @@
 package Player;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     public enum Races {
@@ -109,6 +110,14 @@ public class Player {
     }
     public void addCarryWeight(int carryWeight) {
         this.carryWeight += carryWeight;
+    }
+    public int calculateDamage() {
+        Random rand  = new Random();
+        int damage = rand.nextInt(5) + 25;
+        if (equippedWeapon !=null) {
+            return damage + equippedWeapon.getDamage();
+        }
+        return damage;
     }
     public String toString() {
         return ("Name: " + this.name +
