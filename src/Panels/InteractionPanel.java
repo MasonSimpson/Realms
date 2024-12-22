@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayList;
-import Player.*;
+import Entities.Player.*;
 
 public class InteractionPanel extends JPanel{
     private JPanel buttonPanel;

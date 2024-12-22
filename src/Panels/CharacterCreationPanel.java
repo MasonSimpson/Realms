@@ -2,7 +2,7 @@ package Panels;
 
 import javax.swing.*;
 import java.awt.*;
-import Player.*;
+import Entities.Player.*;
 
 
 public class CharacterCreationPanel extends JPanel {
@@ -25,7 +25,7 @@ public class CharacterCreationPanel extends JPanel {
         title.setIcon(new ImageIcon("src/Images/ButtonLabels/character creation label.png"));
         title.setBounds(530, 0, 550, 70);
         this.add(title);
-        // Player name label
+        // Entities.Player name label
         playerNameLabel = new JLabel();
         playerNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         playerNameLabel.setIcon(new ImageIcon("src/Images/ButtonLabels/player name label.png"));

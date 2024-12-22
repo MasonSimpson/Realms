@@ -1,6 +1,6 @@
 package Panels;
 
-import Player.*;
+import Entities.Player.*;
 import Music.*;
 import javax.swing.*;
 import java.awt.*;

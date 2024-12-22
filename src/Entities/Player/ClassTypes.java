@@ -1,4 +1,4 @@
-package Player;
+package Entities.Player;
 
 public record ClassTypes() {
 

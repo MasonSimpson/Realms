@@ -12,6 +12,7 @@ public class Monster {
     public MonsterType type;
     public int level;
     public int health;
+    public int maxHealth;
     public int damage;
     public int healthPotions;
 
@@ -76,6 +77,7 @@ public class Monster {
                 break;
         }
         this.health = 50 + (this.level - 1) * 25;
+        this.maxHealth = health;
         this.damage = 5 + (this.level - 1) * 5;
         this.healthPotions = this.level;
     }
@@ -88,6 +90,14 @@ public class Monster {
     public void addHealth(int health) {
         this.health += health;
         this.healthPotions--;
+    }
+    public void die() {
+        this.health = 0;
+        this.healthPotions = 0;
+        this.level = 0;
+        this.maxHealth = 0;
+        this.damage = 0;
+
     }
 
 

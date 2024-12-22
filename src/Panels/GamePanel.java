@@ -2,7 +2,7 @@ package Panels;
 
 import javax.swing.*;
 import java.awt.*;
-import Player.*;
+import Entities.Player.*;
 
 public class GamePanel extends JPanel {
     public static Player player;

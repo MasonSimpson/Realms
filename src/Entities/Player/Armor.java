@@ -1,4 +1,4 @@
-package Player;
+package Entities.Player;
 
 public class Armor {
     public String name;

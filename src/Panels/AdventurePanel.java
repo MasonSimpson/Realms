@@ -1,12 +1,11 @@
 package Panels;
 
 import Music.MusicPlayer;
-import Player.*;
+import Entities.Player.*;
 import GameLogic.*;
 import Entities.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 
 public class AdventurePanel extends JPanel {
@@ -30,6 +29,7 @@ public class AdventurePanel extends JPanel {
         this.add(actionPanel);
         this.player = player;
         this.realm = realm;
+        setActionPanel();
     }
     public void setActionPanel() {
         playerHealthLabel = new JLabel("<html>" + player.getName() + "'s health: " + player.getHealth());
@@ -38,12 +38,6 @@ public class AdventurePanel extends JPanel {
         playerHealthLabel.setBackground(Color.black);
         playerHealthLabel.setBounds(100, 30, 400, 30);
         actionPanel.add(playerHealthLabel);
-        monsterHealthLabel = new JLabel("<html>" + monster.type + "'s health: " + monster.health);
-        monsterHealthLabel.setFont(monsterHealthLabel.getFont().deriveFont(15f));
-        monsterHealthLabel.setForeground(Color.white);
-        monsterHealthLabel.setBackground(Color.black);
-        monsterHealthLabel.setBounds(100, 70, 400, 30);
-        actionPanel.add(monsterHealthLabel);
         this.revalidate();
         this.repaint();
     }
@@ -56,11 +50,18 @@ public class AdventurePanel extends JPanel {
     public void adventure() {
         messages.add("Traveling through " + realm.name + "...");
         monster = new Monster(realm);
-        setActionPanel();
         interactionPanel.setGameMessages(messages, null);
         timer = new Timer(3000, e -> {
             messages.clear();
             messages.add("<html>You encounter a " + monster.type + ", and it doesn't look like it's going to back down...<br>What would you like to do, " + player.getName() + "?");
+            monsterHealthLabel = new JLabel("<html>" + monster.type + "'s health: " + monster.health);
+            monsterHealthLabel.setFont(monsterHealthLabel.getFont().deriveFont(15f));
+            monsterHealthLabel.setForeground(Color.white);
+            monsterHealthLabel.setBackground(Color.black);
+            monsterHealthLabel.setBounds(100, 70, 400, 30);
+            actionPanel.add(monsterHealthLabel);
+            this.revalidate();
+            this.repaint();
             interactionPanel.setGameMessages(messages, null);
             String[] buttonLabels = {"Battle", "View Inventory", "Flee"};
             Runnable[] buttonActions = {
@@ -70,8 +71,9 @@ public class AdventurePanel extends JPanel {
                         messages.add("You begin your battle with the " + monster.type + "...");
                         interactionPanel.setGameMessages(messages, null);
                         Timer battleStartTimer = new Timer(3000, startBattle -> {
-                            startBattle();
+                            battlePrompt(new Battle(player, monster));
                         });
+                        battleStartTimer.setRepeats(false);
                         battleStartTimer.start();
                     },
                     () -> {
@@ -106,8 +108,7 @@ public class AdventurePanel extends JPanel {
         timer.setRepeats(false);
         timer.start();
     }
-    public void startBattle() {
-        Battle battle = new Battle(player, monster);
+    public void battlePrompt(Battle battle) {
         messages.clear();
         messages.add("What would you like to do, " + player.getName() + "?");
         interactionPanel.setGameMessages(messages, null);
@@ -120,14 +121,168 @@ public class AdventurePanel extends JPanel {
                     messages.add("<html>You attack the " + monster.type + "!<br>" +
                             "You dealt " + damageDealt + " damage to the " + monster.type + ".");
                     interactionPanel.setGameMessages(messages, null);
+                    if (monster.health < 0) {
+                        monster.health = 0;
+                    }
                     updateActionPanel();
+                    Timer timer = new Timer(3000, winner -> {
+                        determineWinner(battle,2);
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+
                 },
-                () -> System.out.println("Heal"),
+                () -> {
+                    messages.clear();
+                    interactionPanel.clearButtons();
+                    if (player.getHealingPotions() == 0) {
+                        messages.add("You do not have any healing potions to use.");
+                        interactionPanel.setGameMessages(messages, null);
+                        Timer timer = new Timer(3000, restartBattlePrompt -> {
+                            battlePrompt(battle);
+                        });
+                        timer.setRepeats(false);
+                        timer.start();
+                    }
+                    else {
+                        int damageHealed = battle.heal();
+                        messages.add("<html>You use one of your health potions to heal!<br>" +
+                                "You restored " + damageHealed + " health.<br>" +
+                                "You now have " + player.getHealingPotions() + " health potions.");
+                        interactionPanel.setGameMessages(messages, null);
+                        updateActionPanel();
+                        Timer timer = new Timer(3000, winner -> {
+                            determineWinner(battle,2);
+                        });
+                        timer.setRepeats(false);
+                        timer.start();
+                    }
+                },
                 () -> {
                     InventoryPopout inventoryPopout = new InventoryPopout(player);
                     inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
                 }
         };
         interactionPanel.addButtons(buttonLabels, buttonActions);
+    }
+    public void monsterAction(Battle battle) {
+        Timer userBattlePrompt = new Timer(2500, winner -> {
+            determineWinner(battle, 1);
+        });
+        messages.clear();
+        interactionPanel.clearButtons();
+        messages.add("Waiting for monster action...");
+        interactionPanel.setGameMessages(messages, null);
+        Timer timer = new Timer(2500, monsterAction -> {
+            messages.clear();
+            int monsterChoice = battle.monsterChoice();
+            switch (monsterChoice) {
+                case 0:
+                    messages.add("<html>The " + monster.type + " attacks you!<br>" +
+                            "The " + monster.type + " dealt " + monster.damage + " to you.");
+                    interactionPanel.setGameMessages(messages, null);
+                    updateActionPanel();
+                    break;
+                case 1:
+                    messages.add("<html>The " + monster.type + " uses a healing potion!<br>" +
+                            "The " + monster.type + " restored " + battle.monsterHealthHealed + " health.");
+                    interactionPanel.setGameMessages(messages, null);
+                    updateActionPanel();
+                    break;
+                default:
+                    break;
+            }
+            userBattlePrompt.setRepeats(false);
+            userBattlePrompt.start();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+    public void determineWinner(Battle battle, int turn) {
+        if (monster.health == 0) {
+            battle.calculateEarnings();
+            player.addGold(battle.goldWon);
+            player.addXp(battle.xpEarned);
+            monster.die();
+            actionPanel.removeAll();
+            setActionPanel();
+            messages.clear();
+            messages.add("<html>You have successefully defeated the " + monster.type + "!<br>" +
+                    "You have earned " + battle.goldWon + " gold and " + battle.xpEarned + " xp.<br>" +
+                    "What would you like to do?");
+            interactionPanel.setGameMessages(messages, null);
+            String[] buttonLabels = {"Continue Adventure", "View Inventory", "Return to Village"};
+            Runnable[] buttonActions = {
+                    () -> {
+                        messages.clear();
+                        interactionPanel.clearButtons();
+                        adventure();
+                    },
+                    () -> {
+                        InventoryPopout inventoryPopout = new InventoryPopout(player);
+                        inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
+                    },
+                    () -> {
+                        messages.clear();
+                        interactionPanel.clearButtons();
+                        messages.add("Returning to the Adventurer's Village...");
+                        interactionPanel.setGameMessages(messages, null);
+                        actionPanel.removeAll();
+                        Timer timer = new Timer(5000, returnToVillage -> {
+                            MusicPlayer.stop();
+                            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                            frame.getContentPane().removeAll();
+                            frame.getContentPane().add(actionPanel);
+                            frame.getContentPane().add(interactionPanel);
+                            AdventurersVillagePanel adventurersVillagePanel = new AdventurersVillagePanel(player, actionPanel, interactionPanel);
+                            frame.getContentPane().add(adventurersVillagePanel);
+                            adventurersVillagePanel.returnToVillage();
+                            frame.revalidate();
+                            frame.repaint();
+                        });
+                        timer.setRepeats(false);
+                        timer.start();
+                    }
+            };
+            interactionPanel.addButtons(buttonLabels, buttonActions);
+        }
+        else if (player.getHealth() == 0) {
+            messages.clear();
+            monster.die();
+            messages.add("You have died. Respawning you in the Adventurer's Village...");
+            interactionPanel.setGameMessages(messages, null);
+            Timer timer = new Timer(5000, returnToVillage -> {
+                AdventurersVillagePanel adventurersVillagePanel = new AdventurersVillagePanel(player, actionPanel, interactionPanel);
+                Timer villagePromptTimer = new Timer(2500, restartVillagePrompt -> {
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().add(actionPanel);
+                    frame.getContentPane().add(interactionPanel);
+                    frame.getContentPane().add(adventurersVillagePanel);
+                    adventurersVillagePanel.villagePrompt();
+                    player.setHealth(player.maxHealth);
+                    frame.revalidate();
+                    frame.repaint();
+                });
+                messages.clear();
+                messages.add("You have been revived by the clerics in the Adventurer's Village. You awake in your house, your health fully restored...");
+                interactionPanel.setGameMessages(messages, null);
+                actionPanel.removeAll();
+                this.revalidate();
+                this.repaint();
+                villagePromptTimer.setRepeats(false);
+                villagePromptTimer.start();
+            });
+            timer.setRepeats(false);
+            timer.start();
+        }
+        else {
+            if (turn == 1) {
+                battlePrompt(battle);
+            }
+            else if (turn == 2) {
+                monsterAction(battle);
+            }
+        }
     }
 }

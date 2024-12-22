@@ -1,7 +1,7 @@
 package GameLogic;
 
 import Entities.*;
-import Player.*;
+import Entities.Player.*;
 import java.util.ArrayList;
 
 public class Realm {

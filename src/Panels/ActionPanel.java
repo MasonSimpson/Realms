@@ -1,6 +1,6 @@
 package Panels;
 
-import Player.*;
+import Entities.Player.*;
 
 import javax.swing.*;
 import java.awt.*;

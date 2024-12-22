@@ -1,4 +1,4 @@
-package Player;
+package Entities.Player;
 
 public class Weapon {
     public String name;

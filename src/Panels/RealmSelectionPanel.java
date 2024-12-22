@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import GameLogic.*;
-import Player.*;
+import Entities.Player.*;
 import Music.*;
 
 public class RealmSelectionPanel extends JPanel {

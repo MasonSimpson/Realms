@@ -1,4 +1,4 @@
-package Player;
+package Entities.Player;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,7 +23,7 @@ public class Player {
     public int healingPotions;
     public int carryWeight;
     private int xpToNextLevel = 100;
-    private int maxHealth = 100;
+    public int maxHealth = 100;
 
     public Player(String name, Races playerRace, Gender playerGender) {
         this.name = name;
