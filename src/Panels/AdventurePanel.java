@@ -116,9 +116,10 @@ public class AdventurePanel extends JPanel {
                 () -> {
                     messages.clear();
                     interactionPanel.clearButtons();
-                    messages.add("You attack the " + monster.type + "!");
+                    int damageDealt = battle.attack();
+                    messages.add("<html>You attack the " + monster.type + "!<br>" +
+                            "You dealt " + damageDealt + " damage to the " + monster.type + ".");
                     interactionPanel.setGameMessages(messages, null);
-                    battle.attack();
                     updateActionPanel();
                 },
                 () -> System.out.println("Heal"),
