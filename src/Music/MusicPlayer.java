@@ -43,7 +43,7 @@ public class MusicPlayer {
         }
     }
     public static void loop() {
-        if (clip != null && clip.isRunning())
+        if (clip != null)
         {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
