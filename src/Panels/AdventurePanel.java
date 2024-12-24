@@ -87,6 +87,7 @@ public class AdventurePanel extends JPanel {
                                 "Traveling back to Adventurer's Village...");
                         interactionPanel.setGameMessages(messages, null);
                         interactionPanel.clearButtons();
+                        actionPanel.removeAll();
                         Timer tempTimer = new Timer(6000, returnToVillage -> {
                             MusicPlayer.stop();
                             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
