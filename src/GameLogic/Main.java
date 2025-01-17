@@ -1,23 +1,26 @@
 package GameLogic;
 
+import Panels.IntroPanel;
 import Panels.MainMenuPanel;
 
 import javax.swing.*;
 
 public class Main {
 
-    public static void main (String[]args) throws InterruptedException {
-        MainMenuPanel menuPanel = new MainMenuPanel();
-
-        JFrame frame = new JFrame("Realms");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Game");
         frame.setSize(1600, 1000);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.add(menuPanel);
+
+        // Show the intro panel first
+        IntroPanel introPanel = new IntroPanel(() -> {
+            frame.setContentPane(new MainMenuPanel()); // Switch to MainMenuPanel
+            frame.revalidate();
+        });
+
+        frame.setContentPane(introPanel);
         frame.setVisible(true);
-
-
     }
 
 }

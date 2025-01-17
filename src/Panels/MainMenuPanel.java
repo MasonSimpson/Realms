@@ -14,8 +14,7 @@ public class MainMenuPanel extends JPanel {
     private JButton backToMenuButton;
     private JButton exitButton;
     private JSlider musicVolumeSlider;
-    private String menuMusicPath = "src/Music/menu music.wav";
-    private boolean menuMusicPlaying = false;
+    private String menuMusicPath = "src/Music/menu music 2.wav";
 
     public MainMenuPanel() {
         super();
@@ -29,10 +28,9 @@ public class MainMenuPanel extends JPanel {
         this.removeAll();
 
         // Stops playing music if music that isn't menu music is currently playing and then starts menu music
-        if (!menuMusicPlaying) {
+        if (!(MusicPlayer.getMusicPath().equals(menuMusicPath))) {
             MusicPlayer.play(menuMusicPath);
             MusicPlayer.loop();
-            menuMusicPlaying = true;
         }
 
         // Game logo

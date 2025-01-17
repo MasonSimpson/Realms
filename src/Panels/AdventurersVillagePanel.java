@@ -49,10 +49,12 @@ public class AdventurersVillagePanel extends JPanel {
         String[] buttonLabels = {"Enter Realm", "Visit Shop", "View Inventory", "Visit Mayor", "Sleep", "Return to Menu"};
         Runnable[] actions = {
                 () -> {
+                    System.out.println("Switching to RealmSelectionPanel...");
                     MusicPlayer.stop();
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     frame.getContentPane().removeAll();
-                    frame.getContentPane().add(new RealmSelectionPanel(player));
+                    frame.setContentPane(new RealmSelectionPanel(player));
+                    System.out.println("RealmSelectionPanel added to frame.");
                     frame.revalidate();
                     frame.repaint();
                 },
@@ -77,7 +79,7 @@ public class AdventurersVillagePanel extends JPanel {
                     MusicPlayer.stop();
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     frame.getContentPane().removeAll();
-                    frame.getContentPane().add(new MainMenuPanel());
+                    frame.setContentPane(new MainMenuPanel());
                     frame.revalidate();
                     frame.repaint();
                 }
