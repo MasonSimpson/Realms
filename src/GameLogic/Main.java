@@ -15,7 +15,7 @@ public class Main {
 
         // Show the intro panel first
         IntroPanel introPanel = new IntroPanel(() -> {
-            frame.setContentPane(new MainMenuPanel()); // Switch to MainMenuPanel
+            frame.setContentPane(new MainMenuPanel());
             frame.revalidate();
         });
 

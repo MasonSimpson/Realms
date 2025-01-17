@@ -26,10 +26,9 @@ public class OptionsPanel extends JPanel {
         musicVolumeSlider.setBackground(Color.black);
         musicVolumeSlider.setForeground(Color.white);
 
-        // Add ChangeListener for real-time volume adjustment
         musicVolumeSlider.addChangeListener(e -> {
             int volumeValue = musicVolumeSlider.getValue();
-            MusicPlayer.setVolume(volumeValue); // Adjust volume instantly
+            MusicPlayer.setVolume(volumeValue);
         });
 
         this.add(musicVolumeSlider);

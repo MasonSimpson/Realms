@@ -10,20 +10,20 @@ public class MusicPlayer {
     private static Clip currentClip;
     private static String musicPath;
     private static FloatControl volumeControl;
-    private static float currentVolume = 70; // Default volume level (0-100)
+    private static float currentVolume = 70;
     private static final Map<String, Clip> clipCache = new HashMap<>();
 
     public static void play(String path) {
         try {
             musicPath = path;
-            stop(); // Stop any currently playing track
+            stop();
             currentClip = clipCache.computeIfAbsent(path, MusicPlayer::loadClip);
             if (currentClip == null) {
                 throw new IllegalArgumentException("Audio file could not be loaded: " + path);
             }
             volumeControl = (FloatControl) currentClip.getControl(FloatControl.Type.MASTER_GAIN);
-            setVolume(currentVolume); // Apply the initial volume
-            currentClip.setFramePosition(0); // Reset to the beginning
+            setVolume(currentVolume);
+            currentClip.setFramePosition(0);
             currentClip.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,7 +32,7 @@ public class MusicPlayer {
 
     public static void loop() {
         if (currentClip != null) {
-            currentClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the clip indefinitely
+            currentClip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
 
@@ -48,7 +48,7 @@ public class MusicPlayer {
             float min = volumeControl.getMinimum();
             float max = volumeControl.getMaximum();
             float gain = min + (max - min) * (volume / 100f);
-            volumeControl.setValue(gain); // Directly apply the volume
+            volumeControl.setValue(gain);
         }
     }
 
@@ -72,13 +72,5 @@ public class MusicPlayer {
         }
     }
 
-    public static void cleanup() {
-        clipCache.values().forEach(clip -> {
-            if (clip.isRunning()) {
-                clip.stop();
-            }
-            clip.close();
-        });
-        clipCache.clear();
-    }
+
 }

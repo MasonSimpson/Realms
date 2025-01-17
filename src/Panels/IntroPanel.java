@@ -24,7 +24,7 @@ public class IntroPanel extends JPanel {
         this.setBackground(Color.BLACK);
 
         // Load title image
-        titleImage = new ImageIcon("src/Images/ButtonLabels/realms logo.png").getImage(); // Replace with actual path
+        titleImage = new ImageIcon("src/Images/ButtonLabels/realms logo.png").getImage();
 
         startHexzyAnimation();
     }
