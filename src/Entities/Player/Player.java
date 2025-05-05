@@ -1,9 +1,11 @@
 package Entities.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Player {
+public class Player implements Serializable {
+    private static final long serialVersionUID = 1L;
     public enum Races {
         HUMAN, DWARF, ELF
     }

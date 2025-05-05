@@ -14,7 +14,7 @@ public class MainMenuPanel extends JPanel {
     private JButton backToMenuButton;
     private JButton exitButton;
     private JSlider musicVolumeSlider;
-    private String menuMusicPath = "src/Music/menu music 2.wav";
+    private String menuMusicPath = "src/Music/menu music 4.wav";
 
     public MainMenuPanel() {
         super();
