@@ -52,7 +52,7 @@ public class AdventurersVillagePanel extends JPanel {
                     MusicPlayer.stop();
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     frame.getContentPane().removeAll();
-                    frame.setContentPane(new RealmSelectionPanel(player));
+                    frame.setContentPane(new RealmSelectionPanel(player, actionPanel, interactionPanel));
                     frame.revalidate();
                     frame.repaint();
                 },

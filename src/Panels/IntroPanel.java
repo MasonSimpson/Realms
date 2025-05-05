@@ -154,7 +154,7 @@ public class IntroPanel extends JPanel {
             FontMetrics fm = g2d.getFontMetrics();
             String clickText = "Click to Start";
             int x = (getWidth() - fm.stringWidth(clickText)) / 2;
-            int y = getHeight() - 50;
+            int y = 800;
             g2d.drawString(clickText, x, y);
         }
     }

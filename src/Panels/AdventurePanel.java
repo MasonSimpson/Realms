@@ -20,18 +20,23 @@ public class AdventurePanel extends JPanel {
     private Monster monster;
     private int goldEarned = 0;
     private int xpEarned = 0;
-    public AdventurePanel(InteractionPanel interactionPanel, ActionPanel actionPanel, Player player, Realm realm) {
+    public AdventurePanel(InteractionPanel interaction, ActionPanel action, Player player, Realm realm) {
         this.setLayout(null);
         this.setBackground(Color.black);
-        this.interactionPanel = interactionPanel;
-        this.actionPanel = actionPanel;
-        this.add(interactionPanel);
-        this.add(actionPanel);
+        this.interactionPanel = interaction;
+        this.actionPanel = action;
         this.player = player;
         this.realm = realm;
+
+        actionPanel.setBounds(0, 0, 1600, 700);
+        interactionPanel.setBounds(0, 700, 1600, 300);
+        this.add(interactionPanel);
+        this.add(actionPanel);
+
         setActionPanel();
     }
     public void setActionPanel() {
+        actionPanel.removeAll();
         playerHealthLabel = new JLabel("<html>" + player.getName() + "'s health: " + player.getHealth());
         playerHealthLabel.setFont(playerHealthLabel.getFont().deriveFont(15f));
         playerHealthLabel.setForeground(Color.white);

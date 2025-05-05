@@ -19,15 +19,13 @@ public class RealmSelectionPanel extends JPanel {
     public Runnable action;
 
 
-    public RealmSelectionPanel(Player player) {
+    public RealmSelectionPanel(Player player, ActionPanel action, InteractionPanel interaction) {
         this.setLayout(null);
         this.setBackground(Color.black);
         this.player = player;
-        actionPanel = new ActionPanel(player);
-        actionPanel.setBounds(0,0, 1600, 700);
+        this.actionPanel = action;
         this.add(actionPanel);
-        interactionPanel = new InteractionPanel(player);
-        interactionPanel.setBounds(0,700, 1600, 300);
+        this.interactionPanel = interaction;
         this.add(interactionPanel);
         MusicPlayer.stop();
         MusicPlayer.play(musicPath);
@@ -140,10 +138,9 @@ public class RealmSelectionPanel extends JPanel {
     private void beginAdventuring() {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(actionPanel);
-        frame.getContentPane().add(interactionPanel);
         interactionPanel.clearButtons();
         adventurePanel = new AdventurePanel(interactionPanel, actionPanel, player, realm);
+        adventurePanel.setBounds(0, 0, 1600, 1000);
         adventurePanel.adventure();
         frame.getContentPane().add(adventurePanel);
         frame.revalidate();
