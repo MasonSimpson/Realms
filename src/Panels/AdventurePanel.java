@@ -208,17 +208,24 @@ public class AdventurePanel extends JPanel {
         if (monster.health == 0) {
             battle.calculateEarnings();
             player.addGold(battle.goldWon);
-            player.addXp(battle.xpEarned);
+            boolean leveledUp = player.addXp(battle.xpEarned);
             goldEarned += battle.goldWon;
             xpEarned += battle.xpEarned;
             monster.die();
-            System.out.println(player.getLevel());
             actionPanel.removeAll();
             setActionPanel();
             messages.clear();
-            messages.add("<html>You have successefully defeated the " + monster.type + "!<br>" +
-                    "You have earned " + battle.goldWon + " gold and " + battle.xpEarned + " xp.<br>" +
-                    "What would you like to do?");
+            StringBuilder messageBuilder = new StringBuilder("<html>");
+            messageBuilder.append("You have successfully defeated the ").append(monster.type).append("!<br>");
+            messageBuilder.append("You have earned ").append(battle.goldWon).append(" gold and ").append(battle.xpEarned).append(" xp.<br>");
+
+            if (leveledUp) {
+                messageBuilder.append("You have leveled up! Your health has raised to ")
+                        .append(player.getHealth()).append(".<br>");
+            }
+
+            messageBuilder.append("What would you like to do?");
+            messages.add(messageBuilder.toString());
             interactionPanel.setGameMessages(messages, null);
             String[] buttonLabels = {"Continue Adventure", "View Inventory", "Return to Village"};
             Runnable[] buttonActions = {

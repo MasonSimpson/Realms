@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class GameMenuPanel extends JPanel {
     private JButton newGameButton;
     private JButton loadGameButton;
+    private JButton deleteSaveButton;
 
     public GameMenuPanel() {
         this.setLayout(null);
@@ -28,6 +29,14 @@ public class GameMenuPanel extends JPanel {
         loadGameButton.setBackground(Color.black);
         loadGameButton.addActionListener(e -> loadGame());
         this.add(loadGameButton);
+        deleteSaveButton = new JButton("Delete Save");
+        deleteSaveButton.setBounds(730, 400, 150, 50);
+        deleteSaveButton.addActionListener(e -> deleteSaveFile());
+        deleteSaveButton.setBackground(Color.black);
+        deleteSaveButton.setHorizontalAlignment(SwingConstants.CENTER);
+        deleteSaveButton.setForeground(Color.white);
+        this.add(deleteSaveButton);
+
         this.revalidate();
         this.repaint();
 
@@ -65,6 +74,42 @@ public class GameMenuPanel extends JPanel {
                 GamePanel.startGame(parent, loadedPlayer, true);
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to load save.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void deleteSaveFile() {
+        String[] saves = SaveUtils.listSaveFiles();
+
+        if (saves.length == 0) {
+            JOptionPane.showMessageDialog(this, "No save files found.", "Delete Save", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        String selected = (String) JOptionPane.showInputDialog(
+                this,
+                "Select a save file to delete:",
+                "Delete Save",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                saves,
+                saves[0]
+        );
+
+        if (selected != null) {
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete " + selected + "?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                if (SaveUtils.deleteSaveFile(selected)) {
+                    JOptionPane.showMessageDialog(this, selected + " deleted.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete " + selected + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }

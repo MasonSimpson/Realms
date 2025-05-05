@@ -13,7 +13,6 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
-        // Show the intro panel first
         IntroPanel introPanel = new IntroPanel(() -> {
             frame.setContentPane(new MainMenuPanel());
             frame.revalidate();

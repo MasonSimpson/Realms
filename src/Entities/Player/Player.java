@@ -54,11 +54,13 @@ public class Player implements Serializable {
     public int getXp() {
         return xp;
     }
-    public void addXp(int xp) {
+    public boolean addXp(int xp) {
         this.xp += xp;
         if (this.xp >= this.xpToNextLevel) {
             levelUp();
+            return true;
         }
+        return false;
     }
     public void levelUp() {
         this.xp -= this.xpToNextLevel;
@@ -119,7 +121,7 @@ public class Player implements Serializable {
         if (equippedWeapon !=null) {
             return damage + equippedWeapon.getDamage();
         }
-        return damage;
+        return 100;
     }
     public String toString() {
         return ("Name: " + this.name +
@@ -127,6 +129,7 @@ public class Player implements Serializable {
         "Gender: " + this.playerGender +
         "Level: " + this.level +
         "XP: " + this.xp +
+        "XP Until Level Up: " + this.xpToNextLevel +
         "Health: " + this.health +
         "Gold: " + this.gold +
         "Healing Potions: " + this.healingPotions +

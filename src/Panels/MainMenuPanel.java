@@ -77,9 +77,9 @@ public class MainMenuPanel extends JPanel {
         this.removeAll();
         this.add(titleLabel);
         GameMenuPanel gameMenuPanel = new GameMenuPanel();
-        gameMenuPanel.setBounds(0, 200,1600,400);
+        gameMenuPanel.setBounds(0, 200,1600,600);
         this.add(gameMenuPanel);
-        createBackToMenuButton(705, 650);
+        createBackToMenuButton(705, 700);
         this.revalidate();
         this.repaint();
     }

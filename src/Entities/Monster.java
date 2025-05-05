@@ -80,12 +80,6 @@ public class Monster {
         this.maxHealth = health;
         this.damage = 5 + (this.level - 1) * 5;
         this.healthPotions = this.level;
-        System.out.println("Monster type: " + this.type);
-        System.out.println("Level: " + this.level);
-        System.out.println("Health: " + this.health);
-        System.out.println("Max Health: " + this.maxHealth);
-        System.out.println("Damage: " + this.damage);
-        System.out.println("Health Potions: " + this.healthPotions);
     }
     public int getLevel() {
         return level;

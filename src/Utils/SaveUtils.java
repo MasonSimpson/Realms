@@ -42,4 +42,9 @@ public class SaveUtils {
             return new String[0];
         return dir.list((d, name) -> name.endsWith(".dat"));
     }
+
+    public static boolean deleteSaveFile(String filename) {
+        File file = new File(SAVE_FOLDER, filename);
+        return file.exists() && file.delete();
+    }
 }

@@ -51,12 +51,11 @@ public class Battle {
             monster.health = monster.maxHealth;
         }
         monster.healthPotions--;
-        System.out.println(monster.healthPotions);
         this.monsterHealthHealed = healthToAdd;
     }
     public void calculateEarnings() {
         this.goldWon = 25 + monster.level * 5;
-        this.xpEarned = monster.level * 5;
+        this.xpEarned = monster.level * 10;
     }
 
 }

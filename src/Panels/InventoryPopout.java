@@ -36,7 +36,7 @@ public class InventoryPopout {
         levelLabel.setFont(new Font("Arial", Font.BOLD, 20));
         levelLabel.setBounds(10, 50, 300, 30);
         inventoryDialog.add(levelLabel);
-        xpLabel = new JLabel("XP Needed to Level Up: " + (player.xpToNextLevel - player.getXp()));
+        xpLabel = new JLabel("XP Needed to Level Up: " + (player.xpToNextLevel - player.xp));
         xpLabel.setForeground(Color.white);
         xpLabel.setFont(new Font("Arial", Font.BOLD, 20));
         xpLabel.setBounds(10, 70, 300, 30);
