@@ -37,7 +37,7 @@ public class Battle {
             return 0;
         }
         else {
-            if (monster.healthPotions == 0 || monster.maxHealth == monster.health)
+            if (monster.healthPotions <= 0 || monster.maxHealth == monster.health)
                 return monsterChoice();
             monsterHeal();
             return 1;
@@ -50,7 +50,8 @@ public class Battle {
         if (monster.health > monster.maxHealth) {
             monster.health = monster.maxHealth;
         }
-        monster.healthPotions = monster.healthPotions - 1;
+        monster.healthPotions--;
+        System.out.println(monster.healthPotions);
         this.monsterHealthHealed = healthToAdd;
     }
     public void calculateEarnings() {

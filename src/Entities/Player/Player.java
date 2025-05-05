@@ -24,7 +24,7 @@ public class Player implements Serializable {
     public int gold;
     public int healingPotions;
     public int carryWeight;
-    private int xpToNextLevel = 100;
+    public int xpToNextLevel = 100;
     public int maxHealth = 100;
 
     public Player(String name, Races playerRace, Gender playerGender) {

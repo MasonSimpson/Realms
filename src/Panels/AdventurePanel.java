@@ -58,7 +58,7 @@ public class AdventurePanel extends JPanel {
         interactionPanel.setGameMessages(messages, null);
         timer = new Timer(3000, e -> {
             messages.clear();
-            messages.add("<html>You encounter a " + monster.type + ", and it doesn't look like it's going to back down...<br>What would you like to do, " + player.getName() + "?");
+            messages.add("<html>You encounter a Level " + monster.getLevel() + " " + monster.type + ", and it doesn't look like it's going to back down...<br>What would you like to do, " + player.getName() + "?");
             monsterHealthLabel = new JLabel("<html>" + monster.type + "'s health: " + monster.health);
             monsterHealthLabel.setFont(monsterHealthLabel.getFont().deriveFont(15f));
             monsterHealthLabel.setForeground(Color.white);
@@ -185,7 +185,7 @@ public class AdventurePanel extends JPanel {
             switch (monsterChoice) {
                 case 0:
                     messages.add("<html>The " + monster.type + " attacks you!<br>" +
-                            "The " + monster.type + " dealt " + monster.damage + " to you.");
+                            "The " + monster.type + " dealt " + monster.damage + " damage to you.");
                     interactionPanel.setGameMessages(messages, null);
                     updateActionPanel();
                     break;
@@ -209,7 +209,10 @@ public class AdventurePanel extends JPanel {
             battle.calculateEarnings();
             player.addGold(battle.goldWon);
             player.addXp(battle.xpEarned);
+            goldEarned += battle.goldWon;
+            xpEarned += battle.xpEarned;
             monster.die();
+            System.out.println(player.getLevel());
             actionPanel.removeAll();
             setActionPanel();
             messages.clear();
