@@ -1,5 +1,7 @@
 package Panels;
 
+import Utils.*;
+
 import javax.swing.*;
 import java.awt.*;
 import Entities.Player.*;
@@ -16,7 +18,7 @@ public class GamePanel extends JPanel {
         this.setBackground(Color.black);
 
     }
-    public static void startGame(JPanel parent, Player player) {
+    public static void startGame(JPanel parent, Player player, boolean loadedGame) {
         parent.removeAll();
 
         GamePanel.player = player;
@@ -33,15 +35,23 @@ public class GamePanel extends JPanel {
         gamePanel.add(interactionPanel);
         gamePanel.revalidate();
         gamePanel.repaint();
-        enterVillage();
+        enterVillage(loadedGame);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            SaveUtils.savePlayer(player);
+        }));
     }
-    private static void enterVillage() {
+    private static void enterVillage(boolean loadedGame) {
         adventurersVillagePanel = new AdventurersVillagePanel(player, actionPanel, interactionPanel);
         adventurersVillagePanel.setBounds(0,0,actionPanel.getWidth(), actionPanel.getHeight());
         actionPanel.add(adventurersVillagePanel);
         actionPanel.revalidate();
         actionPanel.repaint();
-        adventurersVillagePanel.firstTime();
+        if (!loadedGame) {
+            adventurersVillagePanel.firstTime();
+        }
+        else {
+            adventurersVillagePanel.villagePrompt();
+        }
     }
 
 }

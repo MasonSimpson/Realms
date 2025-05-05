@@ -1,7 +1,9 @@
 package Panels;
 
 import Entities.Player.*;
+import Utils.*;
 import Music.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -80,6 +82,7 @@ public class AdventurersVillagePanel extends JPanel {
                     frame.setContentPane(new MainMenuPanel());
                     frame.revalidate();
                     frame.repaint();
+                    SaveUtils.savePlayer(player);
                 }
         };
         interactionPanel.addButtons(buttonLabels, actions);

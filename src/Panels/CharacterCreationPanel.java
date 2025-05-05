@@ -74,6 +74,6 @@ public class CharacterCreationPanel extends JPanel {
         Player.Gender gender = (Player.Gender) genderComboBox.getSelectedItem();
         Player.Races race = (Player.Races) raceComboBox.getSelectedItem();
         Player player = new Player(name, race, gender);
-        GamePanel.startGame(parentPanel, player);
+        GamePanel.startGame(parentPanel, player, false);
     }
 }

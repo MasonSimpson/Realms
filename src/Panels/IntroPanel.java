@@ -17,7 +17,7 @@ public class IntroPanel extends JPanel {
     private boolean increasingAlpha = true;
     private Image titleImage;
     private Runnable onComplete;
-    private String menuMusicPath = "src/Music/menu music 2.wav";
+    private String menuMusicPath = "src/Music/menu music 4.wav";
 
     public IntroPanel(Runnable onComplete) {
         this.onComplete = onComplete;
@@ -34,7 +34,7 @@ public class IntroPanel extends JPanel {
         MusicPlayer.play(menuMusicPath);
         MusicPlayer.loop();
 
-        fadeInTimer = new Timer(50, new ActionListener() {
+        fadeInTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 alpha += 0.05f;
@@ -50,7 +50,7 @@ public class IntroPanel extends JPanel {
     }
 
     private void startHexzyFadeOut() {
-        fadeOutTimer = new Timer(50, new ActionListener() {
+        fadeOutTimer = new Timer(70, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 alpha -= 0.03f;
