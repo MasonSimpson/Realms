@@ -103,6 +103,9 @@ public class Player implements Serializable {
     public void addGold(int gold) {
         this.gold += gold;
     }
+    public void removeGold(int gold) {
+        this.gold -= gold;
+    }
     public int getHealingPotions() {
         return healingPotions;
     }

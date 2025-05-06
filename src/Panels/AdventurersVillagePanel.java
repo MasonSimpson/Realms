@@ -14,6 +14,12 @@ public class AdventurersVillagePanel extends JPanel {
     private ActionPanel actionPanel;
     private InteractionPanel interactionPanel;
     private ArrayList<String> messages = new ArrayList<>();
+    private JFrame frame;
+    private JPanel infoPanel;
+    private JLabel nameLabel;
+    private JLabel levelLabel;
+    private JLabel xpLabel;
+    private JLabel healthLabel;
 
     public AdventurersVillagePanel(Player player, ActionPanel action, InteractionPanel interaction) {
         this.setLayout(null);
@@ -24,6 +30,34 @@ public class AdventurersVillagePanel extends JPanel {
         MusicPlayer.stop();
         MusicPlayer.play(villageMusicPath);
         MusicPlayer.loop();
+        setUserInfo();
+    }
+    public void setUserInfo() {
+        infoPanel = new JPanel();
+        infoPanel.setBackground(Color.white);
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBounds(50, 50, 250, 100);
+        actionPanel.add(infoPanel);
+        nameLabel = new JLabel(player.getName());
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        nameLabel.setForeground(Color.black);
+        infoPanel.add(nameLabel);
+        levelLabel = new JLabel("Level: " + player.getLevel());
+        levelLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        levelLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        levelLabel.setForeground(Color.black);
+        infoPanel.add(levelLabel);
+        xpLabel = new JLabel("XP For Next Level: " + (player.xpToNextLevel - player.level));
+        xpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        xpLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        xpLabel.setForeground(Color.black);
+        infoPanel.add(xpLabel);
+        healthLabel = new JLabel("Health: " + player.getHealth());
+        healthLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        healthLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        healthLabel.setForeground(Color.black);
+        infoPanel.add(healthLabel);
     }
     public void firstTime() {
         messages.add("""
@@ -52,13 +86,20 @@ public class AdventurersVillagePanel extends JPanel {
         Runnable[] actions = {
                 () -> {
                     MusicPlayer.stop();
-                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     frame.getContentPane().removeAll();
                     frame.setContentPane(new RealmSelectionPanel(player, actionPanel, interactionPanel));
                     frame.revalidate();
                     frame.repaint();
                 },
-                () -> System.out.println("Visiting shop..."),
+                () -> {
+                    MusicPlayer.stop();
+                    frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    frame.getContentPane().removeAll();
+                    frame.setContentPane(new ShopPanel(player, actionPanel, interactionPanel));
+                    frame.revalidate();
+                    frame.repaint();
+                },
                 () -> {
                     InventoryPopout inventoryPopout = new InventoryPopout(player);
                     inventoryPopout.showInventory((JFrame) SwingUtilities.getWindowAncestor(this));
@@ -77,7 +118,7 @@ public class AdventurersVillagePanel extends JPanel {
                 },
                 () -> {
                     MusicPlayer.stop();
-                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     frame.getContentPane().removeAll();
                     frame.setContentPane(new MainMenuPanel());
                     frame.revalidate();

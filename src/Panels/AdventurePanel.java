@@ -28,8 +28,6 @@ public class AdventurePanel extends JPanel {
         this.player = player;
         this.realm = realm;
 
-        actionPanel.setBounds(0, 0, 1600, 700);
-        interactionPanel.setBounds(0, 700, 1600, 300);
         this.add(interactionPanel);
         this.add(actionPanel);
 
