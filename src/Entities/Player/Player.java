@@ -121,7 +121,7 @@ public class Player implements Serializable {
         if (equippedWeapon !=null) {
             return damage + equippedWeapon.getDamage();
         }
-        return 100;
+        return damage;
     }
     public String toString() {
         return ("Name: " + this.name +
